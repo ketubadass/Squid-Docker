@@ -1,0 +1,25 @@
+version: '3'
+services:
+  zerotier:
+    image: "squid-limbo"
+    container_name: squid-container
+    restart: always
+    ports:
+     - "3128:8080"
+    #volumes:
+    #  - $PWD/squid.conf:/etc/squid/squid.conf
+    networks:
+      rede:
+        ipv4_address: 10.55.0.8
+    #command: 'service squid start && service squid status && service squid start && tail -f /var/log/squid/access.log | grep http'
+    #sysctls:
+    # - "net.ipv6.conf.all.disable_ipv6=0"
+    # - "net.ipv4.conf.all.forwarding=1"
+    # - "net.ipv6.conf.all.forwarding=1"
+networks:
+  rede:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.55.0.0/16
+         gateway: 10.55.0.1
